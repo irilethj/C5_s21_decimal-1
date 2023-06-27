@@ -1,4 +1,3 @@
-
 #include "s21_decimal.h"
 
 int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
@@ -67,6 +66,8 @@ int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
       if (((compare == -1) && (!sign_value_1)) ||
           ((compare == 1) && (sign_value_1))) {
         sign_result = 1;
+      } else {
+        sign_result = 0;
       }
     }
     s21_set_scale(&copy_result, scale_result);
@@ -93,7 +94,6 @@ int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
     s21_bnormalize(&copy_value_1, &copy_value_2);
     s21_division(copy_value_1, copy_value_2, &int_part, &remaind);
     copy_result = int_part;
-    s21_set_scale(&copy_result, scale_result);
     if (s21_bnull_check(remaind)) {
       copy_value_1 = remaind;
       int scale_remaind = scale_result;

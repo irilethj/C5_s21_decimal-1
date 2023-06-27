@@ -1,31 +1,4 @@
-
 #include "s21_decimal.h"
-
-int s21_from_int_to_decimal(int src, s21_decimal* dst) {
-  s21_decimal_null(dst);
-  dst->bits[0] = abs(src);
-  if (src < 0) {
-    dst->bits[3] = MINUS;
-  }
-  return 0;
-}
-
-int s21_from_decimal_to_int(s21_decimal src, int* dst) {
-  int return_code = 0;
-  double mantissa = s21_convert_mantissa_to_double(src);
-  int scale = s21_get_scale(src);
-  mantissa /= (pow(10, scale));
-  if (scale > 28 || mantissa > 2147483647) {
-    return_code = 1;
-  } else {
-    if (s21_get_bit(src, 127)) {
-      mantissa *= -1;
-    }
-    *dst = mantissa;
-  }
-
-  return return_code;
-}
 
 int s21_from_float_to_decimal(float src, s21_decimal* dst) {
   int result_flag = 0;
@@ -64,6 +37,7 @@ int s21_from_float_to_decimal(float src, s21_decimal* dst) {
       i++;
     }
   }
+
   return result_flag;
 }
 
@@ -71,19 +45,47 @@ int s21_from_decimal_to_float(s21_decimal src, float* dst) {
   int result_flag = 0;
   int scale = s21_get_scale(src);
   *dst = 0.0;
+  double result = 0.0;
   for (int i = 0; i < 96; i++) {
     if (s21_get_bit(src, i)) {
-      *dst += pow(2, i);
+      double num = pow(2, i);
+      result += num;
     }
   }
-  *dst = *dst / pow(10, scale);
+  *dst = result / pow(10, scale);
   if (src.bits[3] >= 2147483648) {
     *dst = *dst * (-1);
   }
   if (isinf(*dst) || *dst > 79228162514264337593543950335. || isnan(*dst) ||
-      fabsf(*dst) < 1e-28) {
+      (fabsf(*dst) < 1e-28 && fabsf(*dst))) {
     *dst = 0;
     result_flag = 1;
   }
   return result_flag;
+}
+
+int s21_from_int_to_decimal(int src, s21_decimal* dst) {
+  s21_decimal_null(dst);
+  dst->bits[0] = abs(src);
+  if (src < 0) {
+    dst->bits[3] = MINUS;
+  }
+  return 0;
+}
+
+int s21_from_decimal_to_int(s21_decimal src, int* dst) {
+  int return_code = 0;
+  double mantissa = s21_convert_mantissa_to_double(src);
+  int scale = s21_get_scale(src);
+  mantissa /= (pow(10, scale));
+  if (scale > 28 || mantissa > 2147483647) {
+    return_code = 1;
+  } else {
+    if (s21_get_bit(src, 127)) {
+      mantissa *= -1;
+    }
+    *dst = mantissa;
+  }
+
+  return return_code;
 }

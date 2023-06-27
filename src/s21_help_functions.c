@@ -1,4 +1,3 @@
-
 #include "s21_decimal.h"
 
 void s21_decimal_null(s21_decimal* src) {
@@ -99,25 +98,25 @@ double s21_convert_mantissa_to_double(s21_decimal dst) {
   return result;
 }
 
-void s21_print_decimal(s21_decimal src) {
-  printf("\n");
-  for (int i = 127; i >= 0; --i) {
-    printf("%d ", s21_get_bit(src, i));
-    if ((i == 96) || (i == 64) || (i == 32)) {
-      printf("\n");
-    }
-    if ((i == 120) || (i == 112)) {
-      printf(" ");
-    }
-  }
-  printf("\n\n");
-}
+// void s21_print_decimal(s21_decimal src) {
+//   printf("\n");
+//   for (int i = 127; i >= 0; --i) {
+//     printf("%d ", s21_get_bit(src, i));
+//     if ((i == 96) || (i == 64) || (i == 32)) {
+//       printf("\n");
+//     }
+//     if ((i == 120) || (i == 112)) {
+//       printf(" ");
+//     }
+//   }
+//   printf("\n\n");
+// }
 
-void s21_print_dec_int(s21_decimal src) {
-  for (int i = 3; i >= 0; --i) {
-    printf("%u\n", src.bits[i]);
-  }
-}
+// void s21_print_dec_int(s21_decimal src) {
+//   for (int i = 3; i >= 0; --i) {
+//     printf("%u\n", src.bits[i]);
+//   }
+// }
 
 void s21_shift_bdecimal_right(s21_big_decimal* count) {
   s21_big_decimal copy = {0};
@@ -142,12 +141,12 @@ void s21_subtraction(s21_big_decimal value_1, s21_big_decimal value_2,
   }
 }
 
-void s21_print_int(int x) {
-  for (int i = 7; i >= 0; --i) {
-    printf("%d", s21_get_bit_int(x, i));
-  }
-  printf("\n");
-}
+// void s21_print_int(int x) {
+//   for (int i = 7; i >= 0; --i) {
+//     printf("%d", s21_get_bit_int(x, i));
+//   }
+//   printf("\n");
+// }
 
 void s21_dopol_code(s21_big_decimal value, s21_big_decimal* result) {
   for (int i = 6; i >= 0; --i) {
@@ -256,33 +255,33 @@ int s21_division_by_ten(s21_big_decimal value, s21_big_decimal* int_part) {
   return value.bits[0];
 }
 
-void s21_print_bdec_int(s21_big_decimal src) {
-  s21_big_decimal int_part;
-  s21_big_decimal zero = {0};
-  int remaind;
-  int arr[100] = {0};
-  remaind = s21_division_by_ten(src, &int_part);
-  int not_zero = s21_compare_big_mantissa(int_part, zero);
-  int count = 99;
-  while (not_zero == 1) {
-    arr[count] = remaind;
-    src = int_part;
-    remaind = s21_division_by_ten(src, &int_part);
-    not_zero = s21_compare_big_mantissa(int_part, zero);
-    --count;
-  }
-  arr[count] = src.bits[0];
-  printf(" # ");
-  for (int i = count, j = 1; i < 100; ++i, ++j) {
-    if (j == 3) {
-      printf(" ");
-      j = 0;
-    }
-    printf("%d", arr[i]);
-  }
-  printf(" #");
-  printf("\n");
-}
+// void s21_print_bdec_int(s21_big_decimal src) {
+//   s21_big_decimal int_part;
+//   s21_big_decimal zero = {0};
+//   int remaind;
+//   int arr[100] = {0};
+//   remaind = s21_division_by_ten(src, &int_part);
+//   int not_zero = s21_compare_big_mantissa(int_part, zero);
+//   int count = 99;
+//   while (not_zero == 1) {
+//     arr[count] = remaind;
+//     src = int_part;
+//     remaind = s21_division_by_ten(src, &int_part);
+//     not_zero = s21_compare_big_mantissa(int_part, zero);
+//     --count;
+//   }
+//   arr[count] = src.bits[0];
+//   printf(" # ");
+//   for (int i = count, j = 1; i < 100; ++i, ++j) {
+//     if (j == 3) {
+//       printf(" ");
+//       j = 0;
+//     }
+//     printf("%d", arr[i]);
+//   }
+//   printf(" #");
+//   printf("\n");
+// }
 
 void s21_move_to_big(s21_big_decimal* big_value, s21_decimal value) {
   s21_big_decimal_null(big_value);
@@ -292,22 +291,22 @@ void s21_move_to_big(s21_big_decimal* big_value, s21_decimal value) {
   big_value->bits[7] = value.bits[3];
 }
 
-void s21_print_big_decimal(s21_big_decimal src) {
-  printf("\n");
-  for (int i = 255; i >= 0; --i) {
-    printf("%d ", s21_bget_bit(src, i));
-    if ((i == 224) || (i == 192) || (i == 160) || (i == 128)) {
-      printf("\n");
-    }
-    if ((i == 96) || (i == 64) || (i == 32)) {
-      printf("\n");
-    }
-    if ((i == 248) || (i == 240)) {
-      printf(" ");
-    }
-  }
-  printf("\n\n");
-}
+// void s21_print_big_decimal(s21_big_decimal src) {
+//   printf("\n");
+//   for (int i = 255; i >= 0; --i) {
+//     printf("%d ", s21_bget_bit(src, i));
+//     if ((i == 224) || (i == 192) || (i == 160) || (i == 128)) {
+//       printf("\n");
+//     }
+//     if ((i == 96) || (i == 64) || (i == 32)) {
+//       printf("\n");
+//     }
+//     if ((i == 248) || (i == 240)) {
+//       printf(" ");
+//     }
+//   }
+//   printf("\n\n");
+// }
 
 int s21_bget_bit(s21_big_decimal dst, int index) {
   unsigned int i = index / 32;
@@ -385,8 +384,6 @@ void s21_move_back(s21_big_decimal big_value, s21_decimal* value) {
   value->bits[3] = big_value.bits[7];
 }
 
-
-
 int s21_check_and_transfer(s21_big_decimal value, s21_decimal* result) {
   int check = 0;
   check = s21_check_overflow(value);
@@ -424,6 +421,7 @@ int s21_check_and_transfer(s21_big_decimal value, s21_decimal* result) {
   }
   return check;
 }
+
 
 int s21_check_overflow(s21_big_decimal value) {
   int check = 0;
@@ -562,4 +560,122 @@ int s21_num_length(long long int int_part) {
     int_part_length++;
   }
   return int_part_length;
+}
+
+void s21_dec_mult_ten(s21_decimal* value) {
+  s21_decimal tmp = {0};
+  s21_decimal copy_value = {0};
+  s21_shift_decimal_left(value);
+  copy_value = *value;
+  s21_shift_decimal_left(value);
+  s21_shift_decimal_left(value);
+  s21_add_for_compare(*value, copy_value, &tmp);
+  *value = tmp;
+}
+
+void s21_normalize(s21_decimal* value_1, s21_decimal* value_2) {
+  int scale_value_1 = s21_get_scale(*value_1);
+  int scale_value_2 = s21_get_scale(*value_2);
+  int normalize_scale = 0;
+  value_1->bits[3] = 0;
+  value_2->bits[3] = 0;
+  if (scale_value_1 > scale_value_2) {
+    normalize_scale = scale_value_1 - scale_value_2;
+    for (int i = 0; i < normalize_scale; ++i) {
+      s21_dec_mult_ten(value_2);
+    }
+  } else if (scale_value_2 > scale_value_1) {
+    normalize_scale = scale_value_2 - scale_value_1;
+    for (int i = 0; i < normalize_scale; ++i) {
+      s21_dec_mult_ten(value_1);
+    }
+  }
+}
+
+void s21_add_for_compare(s21_decimal value_1, s21_decimal value_2,
+                         s21_decimal* result) {
+  int value_1_bit;
+  int value_2_bit;
+  int tmp = 0;
+  for (int i = 0; i < 128; ++i) {
+    value_1_bit = s21_get_bit(value_1, i);
+    value_2_bit = s21_get_bit(value_2, i);
+    if ((value_1_bit) && (value_2_bit) && (tmp)) {
+      s21_set_bit(result, i, 1);
+    }
+    if (value_1_bit && value_2_bit) {
+      tmp = 1;
+    }
+    if ((value_1_bit) && (!value_2_bit) && (!tmp)) {
+      s21_set_bit(result, i, 1);
+    }
+    if ((!value_1_bit) && (value_2_bit) && (!tmp)) {
+      s21_set_bit(result, i, 1);
+    }
+    if ((!value_1_bit) && (!value_2_bit) && (tmp)) {
+      s21_set_bit(result, i, 1);
+      tmp = 0;
+    }
+  }
+}
+
+int s21_shift_decimal_left(s21_decimal* count) {
+  s21_decimal copy = {0};
+  for (int i = 1; i < 128; i++)
+    if (s21_get_bit(*count, i - 1)) {
+      s21_set_bit(&copy, i, 1);
+    }
+  *count = copy;
+  return copy.bits[3];
+}
+
+int s21_compare_mantissa(s21_decimal value_1, s21_decimal value_2,
+                         int common_sign) {
+  int return_code = -1;
+  int equal = 0;
+  s21_normalize(&value_1, &value_2);
+  for (int i = 3; i >= 0; --i) {
+    if (value_1.bits[i] == value_2.bits[i]) {
+      ++equal;
+    }
+    if ((common_sign == 2) && (value_1.bits[i] != value_2.bits[i])) {
+      if (value_1.bits[i] > value_2.bits[i]) {
+        return_code = -1;
+      } else {
+        return_code = 1;
+      }
+      break;
+    } else if (!common_sign && (value_1.bits[i] != value_2.bits[i])) {
+      if (value_1.bits[i] < value_2.bits[i]) {
+        return_code = -1;
+      } else {
+        return_code = 1;
+      }
+      break;
+    }
+  }
+  if (equal == 4) {
+    return_code = 0;
+  }
+  return return_code;
+}
+
+int s21_compare(s21_decimal value_1, s21_decimal value_2) {
+  int return_code = -1, zero_decimal = 0;
+  for (int i = 2; i >= 0; --i) {
+    if (value_1.bits[i] || value_2.bits[i]) {
+      zero_decimal = 1;
+    }
+  }
+  if (!zero_decimal) {
+    return_code = 0;
+  } else if (s21_get_bit(value_1, 127) && (!s21_get_bit(value_2, 127))) {
+    return_code = -1;
+  } else if ((!s21_get_bit(value_1, 127)) && s21_get_bit(value_2, 127)) {
+    return_code = 1;
+  } else {
+    int common_sign = s21_get_bit(value_1, 127) + s21_get_bit(value_2, 127);
+    return_code = s21_compare_mantissa(value_1, value_2, common_sign);
+  }
+  return return_code;
 }
